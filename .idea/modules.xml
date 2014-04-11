@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/Historic Landscapes App/Historic Landscapes App.iml" filepath="$PROJECT_DIR$/Historic Landscapes App/Historic Landscapes App.iml" />
+      <module fileurl="file://$PROJECT_DIR$/HistoricLandscapesApp.iml" filepath="$PROJECT_DIR$/HistoricLandscapesApp.iml" />
+    </modules>
+  </component>
+</project>
+
