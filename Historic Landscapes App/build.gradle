@@ -26,5 +26,7 @@ dependencies {
     compile 'com.android.support:appcompat-v7:19.+'
     compile 'com.github.chrisbanes.actionbarpulltorefresh:extra-abc:+'
     compile 'com.loopj.android:android-async-http:+'
+    compile 'com.google.android.gms:play-services:+'
+
     compile fileTree(dir: 'libs', include: ['*.jar'])
 }
