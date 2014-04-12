@@ -5,12 +5,15 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.RectF;
+import android.graphics.Typeface;
 import android.graphics.drawable.ColorDrawable;
 import android.location.Location;
 import android.os.AsyncTask;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -39,12 +42,11 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 import java.io.InputStream;
-
 import java.util.ArrayList;
 import java.util.List;
 
 
-public class MapActivity extends ActionBarActivity {
+public class FeedActivity extends ActionBarActivity {
 
     ListView feed;
     List places = new ArrayList<Location2>();
@@ -52,39 +54,46 @@ public class MapActivity extends ActionBarActivity {
     Bitmap placeImage;
     String urlPic;
 
+    Typeface futuraMedium;
+    Typeface gearedSlab;
+    Typeface myriadPro;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_map);
+
+        futuraMedium = Typeface.createFromAsset(getAssets(), "fonts/Futura Medium.ttf");
+        gearedSlab = Typeface.createFromAsset(getAssets(), "fonts/GearedSlab.ttf");
+        myriadPro = Typeface.createFromAsset(getAssets(), "fonts/MyriadPro-Semibold.ttf");
+
         feed = (ListView) findViewById(R.id.listView);
         adapter = new MyAdapter(this, R.layout.list_element, places);
-        getActionBar().setTitle("Historic Landmarks");
+        getActionBar().setTitle("HISTORIC LANDMARKS");
+        getActionBar().setIcon(R.drawable.actionbar_logo);
         getActionBar().setBackgroundDrawable(new ColorDrawable(Color.parseColor("#b85f0c")));
         initUI();
 
-
         feed.setAdapter(adapter);
 
+        feed.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view,
+                                    int position, long id) {
+                Toast.makeText(getApplicationContext(), "position is   " + position, Toast.LENGTH_SHORT).show();
+                Intent i = new Intent(getApplicationContext(), DetailActivity.class);
+                i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 
-        feed
-                .setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                    @Override
-                    public void onItemClick(AdapterView<?> parent, View view,
-                                            int position, long id) {
-                        Toast.makeText(getApplicationContext(),"position is   "+ position, Toast.LENGTH_SHORT).show();
-                        Intent i = new Intent(getApplicationContext(), DetailActivity.class);
-                        i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                Log.d("listview", "variables:  " + ((Location2) places.get(position)).getName() + " ");
+                Log.d("listview", "variables:  " + ((Location2) places.get(position)).getImage() + " ");
+                Log.d("listview", "variables:  " + ((Location2) places.get(position)).getDiscription() + " ");
+                i.putExtra("name", ((Location2) places.get(position)).getName());
+                i.putExtra("pic", ((Location2) places.get(position)).getImage());
+                i.putExtra("disc", ((Location2) places.get(position)).getDiscription());
 
-                        Log.d("listview", "variables:  "+ ((Location2) places.get(position)).getName()+" ");
-                        Log.d("listview", "variables:  "+ ((Location2) places.get(position)).getImage()+" ");
-                        Log.d("listview", "variables:  "+ ((Location2) places.get(position)).getDiscription()+" ");
-                        i.putExtra("name", ((Location2) places.get(position)).getName());
-                        i.putExtra("pic", ((Location2) places.get(position)).getImage());
-                        i.putExtra("disc", ((Location2) places.get(position)).getDiscription());
-
-                        getApplicationContext().startActivity(i);
-                    }
-                });
+                getApplicationContext().startActivity(i);
+            }
+        });
 
     }
 
@@ -159,7 +168,6 @@ public class MapActivity extends ActionBarActivity {
                                     }
 
 
-
                                 }.execute();
 
                                 feed.invalidateViews();
@@ -168,7 +176,8 @@ public class MapActivity extends ActionBarActivity {
                         } catch (JSONException ex) {
                             Log.e(this.getClass().getName(),
                                     response.toString()
-                                            + " could not be parsed.");
+                                            + " could not be parsed."
+                            );
                         }
 
                         adapter.notifyDataSetChanged();
@@ -181,8 +190,8 @@ public class MapActivity extends ActionBarActivity {
                         //Toast.LENGTH_SHORT).show();
                         Log.e("skewp", errorResponse.toString() + " more  " + e.toString());
                     }
-                });
-
+                }
+        );
 
 
     }
@@ -222,9 +231,9 @@ public class MapActivity extends ActionBarActivity {
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
             final String content = getItem(position).getDiscription();
-            Log.e("yo", "my content: " + content);
+            Log.d("yo", "my content: " + content);
             Bitmap pic = getItem(position).getImage();
-            Log.e("yoo", "am i null?   " + pic.toString());
+            Log.d("yoo", "am i null?   " + pic.toString());
             View view;
 
             if (convertView == null) {
@@ -234,23 +243,29 @@ public class MapActivity extends ActionBarActivity {
             } else {
                 view = convertView;
             }
-           String words[] = content.split(" ");
-           String info="";
-            for (int i=0; i<words.length;i++)
-            {
-                info+=words[i]+" ";
-                if(info.length()>150)
-                {
-                    info+="...";
+            String words[] = content.split(" ");
+            String info = "";
+            for (int i = 0; i < words.length; i++) {
+                info += words[i] + " ";
+                if (info.length() > 150) {
+                    info += "...";
                     break;
                 }
             }
 
-            TextView placeInfo = (TextView) view.findViewById(R.id.textView);
-            placeInfo.setText(info);
+            TextView name = (TextView) view.findViewById(R.id.name);
+            name.setTypeface(myriadPro);
+            name.setText((CharSequence) getItem(position).getName().toUpperCase());
+
+            TextView description = (TextView) view.findViewById(R.id.description);
+            description.setTypeface(gearedSlab);
+            description.setText((CharSequence) getItem(position).getDiscription());
+
+            TextView distance = (TextView) view.findViewById(R.id.distance);
+            distance.setTypeface(futuraMedium);
+
             ImageView iv = (ImageView) view.findViewById(R.id.imageView);
-            iv.setImageBitmap(pic);
-            iv.setBackground(null);
+            iv.setImageBitmap(scaleCenterCrop(pic, 100, 100));
 
             notifyDataSetChanged();
             feed.invalidateViews();
@@ -261,6 +276,39 @@ public class MapActivity extends ActionBarActivity {
         }
     }
 
+    public Bitmap scaleCenterCrop(Bitmap source, int newHeight, int newWidth) {
+        int sourceWidth = source.getWidth();
+        int sourceHeight = source.getHeight();
+
+        // Compute the scaling factors to fit the new height and width, respectively.
+        // To cover the final image, the final scaling will be the bigger
+        // of these two.
+        float xScale = (float) newWidth / sourceWidth;
+        float yScale = (float) newHeight / sourceHeight;
+        float scale = Math.max(xScale, yScale);
+
+        // Now get the size of the source bitmap when scaled
+        float scaledWidth = scale * sourceWidth;
+        float scaledHeight = scale * sourceHeight;
+
+        // Let's find out the upper left coordinates if the scaled bitmap
+        // should be centered in the new size give by the parameters
+        float left = (newWidth - scaledWidth) / 2;
+        float top = (newHeight - scaledHeight) / 2;
+
+        // The target rectangle for the new, scaled version of the source bitmap will now
+        // be
+        RectF targetRect = new RectF(left, top, left + scaledWidth, top + scaledHeight);
+
+        // Finally, we create a new bitmap of the specified size and draw our new,
+        // scaled bitmap onto it.
+        Bitmap dest = Bitmap.createBitmap(newWidth, newHeight, source.getConfig());
+        Canvas canvas = new Canvas(dest);
+        canvas.drawBitmap(source, null, targetRect, null);
+
+        return dest;
+    }
+
     public class Location2 {
         private String text;
         private String lat;
@@ -269,19 +317,19 @@ public class MapActivity extends ActionBarActivity {
         private String discription;
         private String name;
 
-        public Location2(String t, String disc, String lon, String lat, Bitmap d,String n) {
+        public Location2(String t, String disc, String lon, String lat, Bitmap d, String n) {
             this.lat = lat;
             this.lon = lon;
             text = t;
             image = d;
             discription = disc;
-            name= n;
+            name = n;
         }
 
-        public String getName()
-        {
+        public String getName() {
             return name;
         }
+
         public String getDiscription() {
             return discription;
 

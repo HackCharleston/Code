@@ -21,7 +21,7 @@
 
 
         <activity
-            android:name="org.lolt.historiclandscapes.app.MapActivity"
+            android:name=".FeedActivity"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
