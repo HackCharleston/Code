@@ -18,7 +18,12 @@ android {
     }
 }
 
+repositories {
+    mavenCentral()
+}
+
 dependencies {
     compile 'com.android.support:appcompat-v7:19.+'
+    compile 'com.github.chrisbanes.actionbarpulltorefresh:extra-abc:+'
     compile fileTree(dir: 'libs', include: ['*.jar'])
 }
