@@ -11,13 +11,23 @@
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:id="@+id/name"
+        android:hint="Enter name here"
+        android:textSize="50sp"
+        android:layout_alignBaseline="@+id/imageView"
+        android:layout_alignBottom="@+id/imageView"
+        android:layout_centerHorizontal="true" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:inputType="textMultiLine"
         android:ems="10"
-        android:id="@+id/editText"
+        android:id="@+id/description"
         android:hint="Enter Landmark Description"
         android:layout_above="@+id/button"
-        android:layout_alignLeft="@+id/editText2"
-        android:layout_alignStart="@+id/editText2"
+        android:layout_alignLeft="@+id/name"
+        android:layout_alignStart="@+id/name"
         android:layout_marginBottom="252dp" />
 
     <Button
@@ -30,10 +40,9 @@
         android:layout_toLeftOf="@+id/imageView" />
 
     <ImageView
-        android:layout_width="100dp"
-        android:layout_height="100dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:id="@+id/imageView"
-        android:background="@drawable/ic_launcher"
         android:layout_marginTop="67dp"
 
         android:layout_alignParentTop="true"
@@ -48,13 +57,4 @@
         android:layout_alignParentBottom="true"
         android:layout_toRightOf="@+id/imageView" />
 
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/editText2"
-        android:hint="Enter name here"
-        android:textSize="50sp"
-        android:layout_alignBaseline="@+id/button"
-        android:layout_alignBottom="@+id/button"
-        android:layout_centerHorizontal="true" />
 </RelativeLayout>
