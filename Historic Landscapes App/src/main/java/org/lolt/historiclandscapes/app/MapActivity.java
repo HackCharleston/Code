@@ -22,6 +22,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
@@ -36,13 +37,9 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.URI;
-import java.net.URL;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -74,12 +71,18 @@ public class MapActivity extends ActionBarActivity {
                     @Override
                     public void onItemClick(AdapterView<?> parent, View view,
                                             int position, long id) {
-                        Location2 data = (Location2) places.get(position);
+                        Toast.makeText(getApplicationContext(),"position is   "+ position, Toast.LENGTH_SHORT).show();
                         Intent i = new Intent(getApplicationContext(), DetailActivity.class);
+                        i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+
+                        Log.d("listview", "variables:  "+ ((Location2) places.get(position)).getName()+" ");
+                        Log.d("listview", "variables:  "+ ((Location2) places.get(position)).getImage()+" ");
+                        Log.d("listview", "variables:  "+ ((Location2) places.get(position)).getDiscription()+" ");
                         i.putExtra("name", ((Location2) places.get(position)).getName());
                         i.putExtra("pic", ((Location2) places.get(position)).getImage());
                         i.putExtra("disc", ((Location2) places.get(position)).getDiscription());
-                        startActivity(i);
+
+                        getApplicationContext().startActivity(i);
                     }
                 });
 
@@ -236,7 +239,7 @@ public class MapActivity extends ActionBarActivity {
             for (int i=0; i<words.length;i++)
             {
                 info+=words[i]+" ";
-                if(info.length()>50)
+                if(info.length()>150)
                 {
                     info+="...";
                     break;
