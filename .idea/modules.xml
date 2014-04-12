@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/Code.iml" filepath="$PROJECT_DIR$/Code.iml" />
       <module fileurl="file://$PROJECT_DIR$/Historic Landscapes App/Historic Landscapes App.iml" filepath="$PROJECT_DIR$/Historic Landscapes App/Historic Landscapes App.iml" />
       <module fileurl="file://$PROJECT_DIR$/HistoricLandscapesApp.iml" filepath="$PROJECT_DIR$/HistoricLandscapesApp.iml" />
     </modules>
