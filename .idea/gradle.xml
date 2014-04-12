@@ -7,8 +7,8 @@
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
         <option name="modules">
           <set>
-            <option value="C:\Users\John\AndroidStudioProjects\HistoricLandscapesApp" />
-            <option value="C:\Users\John\AndroidStudioProjects\HistoricLandscapesApp\Historic Landscapes App" />
+            <option value="$PROJECT_DIR$" />
+            <option value="$PROJECT_DIR$/Historic Landscapes App" />
           </set>
         </option>
       </GradleProjectSettings>
