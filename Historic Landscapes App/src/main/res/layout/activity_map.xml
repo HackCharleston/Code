@@ -2,7 +2,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="org.lolt.historiclandscapes.app.MapActivity">
+    tools:context="org.lolt.historiclandscapes.app.MapActivity"
+    android:background="#dfd5c2">
 
     <ListView
         android:layout_width="wrap_content"
@@ -10,5 +11,9 @@
         android:id="@+id/listView"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
+        android:divider="@android:color/transparent"
+        android:dividerHeight="10.0sp"
+        android:padding="15dp"
      />
 </RelativeLayout>
+
