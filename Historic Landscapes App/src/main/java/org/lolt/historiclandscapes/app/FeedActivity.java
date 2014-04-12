@@ -141,7 +141,7 @@ public class FeedActivity extends ActionBarActivity {
                                             InputStream instream = bufHttpEntity.getContent();
                                             // if (input != null) Log.d("getImageFromUrl", "InputStream is not null.");
                                             BitmapFactory.Options options = new BitmapFactory.Options();
-                                            options.inSampleSize = 4;
+                                            options.inSampleSize = 2;
                                             Bitmap myBitmap = BitmapFactory.decodeStream(instream, null, options);
                                             Log.e("yooo", "are we null? " + myBitmap.toString());
                                             //  if (input == null) Log.d("getImageFromUrl", "But the bitmap is...");
@@ -259,7 +259,7 @@ public class FeedActivity extends ActionBarActivity {
 
             TextView description = (TextView) view.findViewById(R.id.description);
             description.setTypeface(gearedSlab);
-            description.setText((CharSequence) getItem(position).getDiscription());
+            description.setText(info);
 
             TextView distance = (TextView) view.findViewById(R.id.distance);
             distance.setTypeface(futuraMedium);
