@@ -80,7 +80,6 @@ public class FeedActivity extends ActionBarActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view,
                                     int position, long id) {
-                Toast.makeText(getApplicationContext(), "position is   " + position, Toast.LENGTH_SHORT).show();
                 Intent i = new Intent(getApplicationContext(), DetailActivity.class);
                 i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 
